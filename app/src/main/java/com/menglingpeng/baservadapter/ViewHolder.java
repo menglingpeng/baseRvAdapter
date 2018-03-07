@@ -4,11 +4,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,6 +66,18 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 
+    public ViewHolder setTextColor(int viewId, int textColor){
+        TextView view = getView(viewId);
+        view.setTextColor(textColor);
+        return this;
+    }
+
+    public ViewHolder setTextColorRes(int viewId, int textColorRes){
+        TextView view = getView(viewId);
+        view.setTextColor(context.getColor(textColorRes));
+        return this;
+    }
+
     public ViewHolder setImageResource(int viewId, int resId){
         ImageView imageView = getView(viewId);
         imageView.setImageResource(resId);
@@ -80,10 +96,35 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 
+    public ViewHolder setVisible(int viewId, boolean visible){
+        View view = getView(viewId);
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+        return this;
+    }
+
+    public ViewHolder setAlpha(int viewId, float value){
+        View view = getView(viewId);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            view.setAlpha(value);
+        }else {
+            AlphaAnimation alphaAnimation = new AlphaAnimation(value, value);
+            alphaAnimation.setDuration(0);
+            alphaAnimation.setFillAfter(true);
+            view.startAnimation(alphaAnimation);
+        }
+        return this;
+    }
+
     //事件处理
     public ViewHolder setOnClickListener(int viewId, View.OnClickListener listener){
         View view = getView(viewId);
         view.setOnClickListener(listener);
+        return this;
+    }
+
+    public ViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener){
+        View view = getView(viewId);
+        view.setOnLongClickListener(listener);
         return this;
     }
 }
