@@ -63,4 +63,12 @@ public class EmptyViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
         return adapter.getItemCount();
     }
+
+    public void setEmptyView(View emptyView){
+        this.emptyView = emptyView;
+    }
+
+    public void setEmpytView(int emptyLayoutID){
+        this.emptyLayoutID = emptyLayoutID;
+    }
 }

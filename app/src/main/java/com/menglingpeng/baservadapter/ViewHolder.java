@@ -13,7 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Checkable;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -93,6 +95,43 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     public ViewHolder setImageDrawable(int viewId, Drawable drawable){
         ImageView imageView = getView(viewId);
         imageView.setImageDrawable(drawable);
+        return this;
+    }
+
+    public ViewHolder setBackgroudColor(int viewId, int color){
+        View view = getView(viewId);
+        view.setBackgroundColor(color);
+        return this;
+    }
+
+    public ViewHolder setBackgroudRes(int viewId, int res){
+        View view = getView(viewId);
+        view.setBackgroundResource(res);
+        return this;
+    }
+
+    public ViewHolder setProgress(int viewID, int progress){
+        ProgressBar view = getView(viewID);
+        view.setProgress(progress);
+        return this;
+    }
+
+    public ViewHolder setProgress(int viewID, int progress, int max){
+        ProgressBar view = getView(viewID);
+        view.setMax(max);
+        view.setProgress(progress);
+        return this;
+    }
+
+    public ViewHolder setProgressMax(int viewId, int max){
+        ProgressBar view = getView(viewId);
+        view.setMax(max);
+        return this;
+    }
+
+    public ViewHolder setChecked(int viewId, boolean checked){
+        Checkable view = (Checkable)getView(viewId);
+        view.setChecked(checked);
         return this;
     }
 
