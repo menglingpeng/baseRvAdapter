@@ -2,34 +2,31 @@ package com.menglingpeng.baservadapter.wrapper;
 
 import android.support.v4.util.SparseArrayCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.menglingpeng.baservadapter.ViewHolder;
 
-import java.util.List;
-
 /**
  * Created by mengdroid on 2018/3/10.
  */
 
-public class FooterViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HeaderViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public static final int ITEM_TYPE_FOOTER = 3;
+    public static final int ITEM_TYPE_HEADER = 4;
 
     private RecyclerView.Adapter adapter;
-    private SparseArrayCompat<View> footViews;
+    private SparseArrayCompat<View> headerViews;
 
-    public FooterViewWrapper(RecyclerView.Adapter adapter){
+    public HeaderViewWrapper(RecyclerView.Adapter adapter){
         this.adapter = adapter;
-        footViews = new SparseArrayCompat<>();
+        headerViews = new SparseArrayCompat<>();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(footViews.get(viewType) != null){
-            ViewHolder holder = ViewHolder.createViewHolder(parent.getContext(), footViews.get(viewType));
+        if(headerViews.get(viewType) != null){
+            ViewHolder holder = ViewHolder.createViewHolder(parent.getContext(), headerViews.get(viewType));
             return holder;
         }
         return adapter.onCreateViewHolder(parent, viewType);
@@ -37,15 +34,15 @@ public class FooterViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        if(isFooterView(position)){
-            return footViews.keyAt(position);
+        if(isHeaderView(position)){
+            return headerViews.keyAt(position);
         }
         return adapter.getItemViewType(position);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(isFooterView(position)){
+        if(isHeaderView(position)){
             return;
         }
         adapter.onBindViewHolder(holder, position);
@@ -53,18 +50,18 @@ public class FooterViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        return getItemCount() + footViews.size();
+        return getItemCount() + headerViews.size();
     }
 
-    private boolean isFooterView(int position){
+    private boolean isHeaderView(int position){
         return position > adapter.getItemCount();
     }
 
-    public void addFooterView(View view){
-        footViews.put(footViews.size() + ITEM_TYPE_FOOTER, view);
+    public void addHeaderView(View view){
+        headerViews.put(headerViews.size() + ITEM_TYPE_HEADER, view);
     }
 
-    public int getFootersCount(){
-        return footViews.size();
+    public int getHeaderCount(){
+        return headerViews.size();
     }
 }
