@@ -16,6 +16,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -135,6 +136,19 @@ public class ViewHolder extends RecyclerView.ViewHolder{
         return this;
     }
 
+    public ViewHolder setRating(int viewId, float rating){
+        RatingBar view = getView(viewId);
+        view.setRating(rating);
+        return this;
+    }
+
+    public ViewHolder setRating(int viewId, float rating, int max){
+        RatingBar view = getView(viewId);
+        view.setMax(max);
+        view.setRating(rating);
+        return this;
+    }
+
     public ViewHolder setVisible(int viewId, boolean visible){
         View view = getView(viewId);
         view.setVisibility(visible ? View.VISIBLE : View.GONE);
@@ -164,6 +178,12 @@ public class ViewHolder extends RecyclerView.ViewHolder{
     public ViewHolder setOnLongClickListener(int viewId, View.OnLongClickListener listener){
         View view = getView(viewId);
         view.setOnLongClickListener(listener);
+        return this;
+    }
+
+    public ViewHolder setOnTouchListerer(int viewId, View.OnTouchListener listener){
+        View view = getView(viewId);
+        view.setOnTouchListener(listener);
         return this;
     }
 }
