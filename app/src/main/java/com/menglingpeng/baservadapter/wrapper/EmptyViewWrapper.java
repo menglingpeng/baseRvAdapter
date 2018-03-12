@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.menglingpeng.baservadapter.ViewHolder;
+import com.menglingpeng.baservadapter.utils.WrapperUtils;
 
 /**
  * Created by mengdroid on 2018/3/7.
@@ -54,6 +55,15 @@ public class EmptyViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHold
             return;
         }
         adapter.onBindViewHolder(holder, position);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        adapter.onViewAttachedToWindow(holder);
+        if(isEmpty()){
+            WrapperUtils.setFullSpan(holder);
+        }
+
     }
 
     @Override

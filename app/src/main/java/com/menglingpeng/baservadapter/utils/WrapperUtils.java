@@ -10,7 +10,7 @@ import android.view.ViewGroup;
  */
 
 public class WrapperUtils {
-    
+
     public interface SpanSizeCallback {
         int getSpanSize(GridLayoutManager layoutManager, GridLayoutManager.SpanSizeLookup oldLookup, int position);
     }

@@ -1,6 +1,7 @@
 package com.menglingpeng.baservadapter.wrapper;
 
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -61,6 +62,27 @@ public class LoadMoreViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
             return;
         }
         adapter.onBindViewHolder(holder, position);
+    }
+
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        adapter.onViewAttachedToWindow(holder);
+        if(isLoadMore(holder.getLayoutPosition())){
+            setFullSpan(holder);
+        }
+    }
+
+    private void setFullSpan(RecyclerView.ViewHolder holder)
+    {
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+
+        if (layoutParams != null
+                && layoutParams instanceof StaggeredGridLayoutManager.LayoutParams)
+        {
+            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) layoutParams;
+
+            p.setFullSpan(true);
+        }
     }
 
     @Override

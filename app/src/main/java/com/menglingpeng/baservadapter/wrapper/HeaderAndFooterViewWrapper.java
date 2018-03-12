@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.menglingpeng.baservadapter.ViewHolder;
+import com.menglingpeng.baservadapter.utils.WrapperUtils;
 
 /**
  * Created by mengdroid on 2018/3/11.
@@ -51,6 +52,15 @@ public class HeaderAndFooterViewWrapper extends RecyclerView.Adapter<RecyclerVie
         }
     }
 
+    @Override
+    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+        int position = holder.getLayoutPosition();
+        adapter.onViewAttachedToWindow(holder);
+        if(isHeaderView(position) || isFooterView(position)){
+            WrapperUtils.setFullSpan(holder);
+        }
+        super.onViewAttachedToWindow(holder);
+    }
 
     @Override
     public int getItemCount() {
