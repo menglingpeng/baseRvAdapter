@@ -1,5 +1,6 @@
 package com.menglingpeng.baservadapter.wrapper;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,25 @@ public class EmptyViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewHold
             return;
         }
         adapter.onBindViewHolder(holder, position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        WrapperUtils.onAttachedToRecyclerView(adapter, recyclerView, new WrapperUtils.SpanSizeCallback() {
+
+
+            @Override
+            public int getSpanSize(GridLayoutManager layoutManager, GridLayoutManager
+                    .SpanSizeLookup oldLookup, int position) {
+                if(isEmpty()){
+                    return layoutManager.getSpanCount();
+                }
+                if(oldLookup != null){
+                    return oldLookup.getSpanSize(position);
+                }
+                return 1;
+            }
+        });
     }
 
     @Override

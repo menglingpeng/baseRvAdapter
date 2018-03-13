@@ -1,6 +1,7 @@
 package com.menglingpeng.baservadapter.wrapper;
 
 import android.support.v4.util.SparseArrayCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,28 @@ public class HeaderAndFooterViewWrapper extends RecyclerView.Adapter<RecyclerVie
         }else if(isFooterView(position)){
             return;
         }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        WrapperUtils.onAttachedToRecyclerView(adapter, recyclerView, new WrapperUtils.SpanSizeCallback() {
+
+
+            @Override
+            public int getSpanSize(GridLayoutManager layoutManager, GridLayoutManager
+                    .SpanSizeLookup oldLookup, int position) {
+                int viewType = getItemViewType(position);
+                if(headerViews.get(viewType) != null){
+                 return layoutManager.getSpanCount();
+                }else if(footViews.get(viewType) != null){
+                    return layoutManager.getSpanCount();
+                }
+                if(oldLookup != null){
+                    return oldLookup.getSpanSize(position);
+                }
+                return 1;
+            }
+        });
     }
 
     @Override

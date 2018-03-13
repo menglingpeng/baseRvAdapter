@@ -1,11 +1,13 @@
 package com.menglingpeng.baservadapter.wrapper;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.menglingpeng.baservadapter.ViewHolder;
+import com.menglingpeng.baservadapter.utils.WrapperUtils;
 
 /**
  * Created by mengdroid on 2018/3/9.
@@ -62,6 +64,25 @@ public class LoadMoreViewWrapper extends RecyclerView.Adapter<RecyclerView.ViewH
             return;
         }
         adapter.onBindViewHolder(holder, position);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        WrapperUtils.onAttachedToRecyclerView(adapter, recyclerView, new WrapperUtils.SpanSizeCallback() {
+
+
+            @Override
+            public int getSpanSize(GridLayoutManager layoutManager, GridLayoutManager
+                    .SpanSizeLookup oldLookup, int position) {
+                if(isLoadMore(position)){
+                    return layoutManager.getSpanCount();
+                }
+                if(oldLookup != null){
+                    return oldLookup.getSpanSize(position);
+                }
+                return 1;
+            }
+        });
     }
 
     @Override
